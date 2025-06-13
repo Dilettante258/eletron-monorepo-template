@@ -17,7 +17,6 @@ const playgroundRouter = factory
     "/snapshot",
     describeRoute({
       tags: ["Playground"],
-
     }),
     async (c) => {
       const snapshotPath = v8.writeHeapSnapshot();

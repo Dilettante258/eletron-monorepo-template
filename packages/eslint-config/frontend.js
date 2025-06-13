@@ -1,5 +1,7 @@
 import pluginReact from "eslint-plugin-react"
 import pluginReactHooks from "eslint-plugin-react-hooks"
+import pluginTanstackRouter from "@tanstack/router-plugin/eslint"
+import pluginTanstackQuery from "@tanstack/eslint-plugin-query"
 import globals from "globals"
 
 import { config as baseConfig } from "./base.js"
@@ -11,6 +13,8 @@ import { config as baseConfig } from "./base.js"
  * */
 export const config = [
   ...baseConfig,
+  ...pluginTanstackRouter.configs.recommended,
+  ...pluginTanstackQuery.configs.recommended,
   {
     ...pluginReact.configs.flat.recommended,
     languageOptions: {

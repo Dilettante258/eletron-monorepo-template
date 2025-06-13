@@ -7,7 +7,7 @@ import { factory, handleError } from "./middleware.ts";
 import { postRouter } from "./post/index.ts";
 import { userRouter } from "./user/index.ts";
 import { playgroundRouter } from "./playground/index.ts";
-import { logStart } from '@/utils/log.ts';
+import { logInfo, logStart } from '@/utils/log.ts';
 
 const app = factory.createApp();
 
@@ -16,6 +16,7 @@ app.use("*", logger());
 app.use(
   "/api/openapi.json",
   openAPISpecs(app, {
+    exclude: process.env.NODE_ENV === "production" ? ["/api/playground"] : [],
     documentation: {
       info: {
         title: "Electron API",
@@ -76,7 +77,8 @@ const routes = app // RPC routes
   .basePath("/api")
   .route("/user", userRouter)
   .route("/post", postRouter)
-if (global.customEnv.NODE_ENV !== "production") {
+
+if (global.customEnv.NODE_ENV === "development") {
   routes.route("/playground", playgroundRouter);
 }
 
@@ -85,6 +87,7 @@ export type AppType = typeof routes;
 const server = serve(app)
 
 logStart("Server started on http://localhost:3000");
+logInfo("API Documentation: http://localhost:3000/api/reference");
 
 // graceful shutdown
 process.on("SIGINT", () => {
