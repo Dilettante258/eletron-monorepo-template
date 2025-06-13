@@ -1,0 +1,23 @@
+{
+  "name": "eletron-monorepo-template",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "workspaces": [
+    "packages/*"
+  ],
+  "packageManager": "pnpm@^9",
+  "engines": {
+    "node": ">=22"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "turbo": "^2.5.4",
+    "typescript": "catalog:"
+  }
+}
